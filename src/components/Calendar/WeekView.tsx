@@ -8,7 +8,6 @@ interface WeekViewProps {
   events: CalendarEvent[];
   onEventClick: (event: CalendarEvent) => void;
   onTimeSlotClick: (date: Date, time: string) => void;
-  onEventUpdate?: (eventId: string, updatedEvent: Partial<CalendarEvent>) => void;
 }
 
 interface DraggableEventProps {
@@ -40,7 +39,6 @@ export const WeekView: React.FC<WeekViewProps> = ({
   events,
   onEventClick,
   onTimeSlotClick,
-  onEventUpdate,
 }) => {
   const weekDays = getWeekDays();
   const timeSlots = getTimeSlots();

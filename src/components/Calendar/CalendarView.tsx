@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import type { CalendarViewProps } from '../../types/calendar.types';
+import type { CalendarEvent, CalendarViewProps } from '../../types/calendar.types';
 import { useCalendar } from '../../hooks/useCalendar';
 import { useEventManager } from '../../hooks/useEventManager';
 import { MonthView } from './MonthView';
@@ -19,7 +19,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const eventManager = useEventManager(initialEvents);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   const handleDateClick = useCallback((date: Date) => {
     calendar.selectDate(date);
@@ -27,7 +27,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     setIsModalOpen(true);
   }, [calendar]);
 
-  const handleEventClick = useCallback((event: any) => {
+  const handleEventClick = useCallback((event: CalendarEvent) => {
     setSelectedEvent(event);
     setIsModalOpen(true);
   }, []);
@@ -45,13 +45,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     setIsModalOpen(true);
   }, [calendar]);
 
-  const handleEventSave = useCallback((eventData: any) => {
+  const handleEventSave = useCallback((eventData: Partial<CalendarEvent>) => {
     try {
       if (selectedEvent) {
         eventManager.updateEvent(selectedEvent.id, eventData);
         onEventUpdate(selectedEvent.id, eventData);
       } else {
-        const newEvent = eventManager.addEvent(eventData);
+        const newEvent = eventManager.addEvent(eventData as Omit<CalendarEvent, 'id'>);
         onEventAdd(newEvent);
       }
     } catch (error) {

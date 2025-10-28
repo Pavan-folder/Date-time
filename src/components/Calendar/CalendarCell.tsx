@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { clsx } from 'clsx';
-import type { CalendarCellProps } from '../../types/calendar.types';
+import type { CalendarCellProps, CalendarEvent } from '../../types/calendar.types';
 import { formatDate } from '../../utils/date.utils';
 import { getEventsForDate, sortEventsByTime } from '../../utils/event.utils';
 
@@ -17,7 +17,7 @@ export const CalendarCell: React.FC<CalendarCellProps> = React.memo(({
     onClick(date);
   }, [date, onClick]);
 
-  const handleEventClick = useCallback((event: any, e: React.MouseEvent) => {
+  const handleEventClick = useCallback((event: CalendarEvent, e: React.MouseEvent) => {
     e.stopPropagation();
     onEventClick(event);
   }, [onEventClick]);
