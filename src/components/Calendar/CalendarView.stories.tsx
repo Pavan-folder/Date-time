@@ -1,8 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useEffect, useState } from 'react';
 import { CalendarView } from './CalendarView';
 import type { CalendarEvent } from '../../types/calendar.types';
 
-// Sample events data
+// Hook to fetch events from public folder
+const useEvents = () => {
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
+
+  useEffect(() => {
+    fetch('/events.json')
+      .then(res => res.json())
+      .then(data => {
+        // Convert string dates to Date objects
+        const parsedEvents = data.map((event: any) => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end),
+        }));
+        setEvents(parsedEvents);
+      })
+      .catch(err => console.error('Failed to load events:', err));
+  }, []);
+
+  return events;
+};
+
+// Sample events data for static stories
 const sampleEvents: CalendarEvent[] = [
   {
     id: 'evt-1',
@@ -121,19 +144,26 @@ export const WithManyEvents: Story = {
   },
 };
 
+// Interactive demo that fetches events from public folder
 export const InteractiveDemo: Story = {
-  args: {
-    events: sampleEvents,
-    onEventAdd: (event) => console.log('Event added:', event),
-    onEventUpdate: (id, updates) => console.log('Event updated:', id, updates),
-    onEventDelete: (id) => console.log('Event deleted:', id),
-    initialView: 'month',
-    initialDate: new Date(),
+  render: () => {
+    const events = useEvents();
+
+    return (
+      <CalendarView
+        events={events}
+        onEventAdd={(event) => console.log('Event added:', event)}
+        onEventUpdate={(id, updates) => console.log('Event updated:', id, updates)}
+        onEventDelete={(id) => console.log('Event deleted:', id)}
+        initialView="month"
+        initialDate={new Date()}
+      />
+    );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Interactive demo with full event management capabilities. Click on dates to create events, click on events to edit them.',
+        story: 'Interactive demo with full event management capabilities. Events are loaded from /public/events.json to work on Vercel. Click on dates to create events, click on events to edit them.',
       },
     },
   },
