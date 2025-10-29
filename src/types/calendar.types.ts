@@ -1,11 +1,10 @@
 export interface CalendarEvent {
   id: string;
   title: string;
+  start: Date;
+  end: Date;
   description?: string;
-  startDate: Date;
-  endDate: Date;
   color?: string;
-  category?: string;
 }
 
 export interface CalendarViewProps {
@@ -13,7 +12,7 @@ export interface CalendarViewProps {
   onEventAdd: (event: CalendarEvent) => void;
   onEventUpdate: (id: string, updates: Partial<CalendarEvent>) => void;
   onEventDelete: (id: string) => void;
-  initialView?: 'month' | 'week';
+  initialView?: 'month' | 'week' | 'list';
   initialDate?: Date;
 }
 
@@ -29,11 +28,10 @@ export interface CalendarCellProps {
 
 export interface EventFormData {
   title: string;
-  startDate: Date;
-  endDate: Date;
+  start: Date;
+  end: Date;
   description?: string;
   color?: string;
-  category?: string;
 }
 
 export type FormErrors = Partial<Record<keyof EventFormData, string>>;

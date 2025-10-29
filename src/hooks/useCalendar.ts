@@ -3,7 +3,7 @@ import { addMonths, subMonths } from 'date-fns';
 
 export interface CalendarState {
   currentDate: Date;
-  view: 'month' | 'week';
+  view: 'month' | 'week' | 'list';
   selectedDate: Date | null;
 }
 
@@ -35,7 +35,7 @@ export const useCalendar = (initialDate: Date = new Date()) => {
     }));
   }, []);
 
-  const setView = useCallback((view: 'month' | 'week') => {
+  const setView = useCallback((view: 'month' | 'week' | 'list') => {
     setState(prev => ({
       ...prev,
       view,

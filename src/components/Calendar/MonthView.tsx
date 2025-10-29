@@ -60,7 +60,7 @@ export const MonthView: React.FC<MonthViewProps> = React.memo(({
 
             // Get events for this date
             const dayEvents = events.filter(event =>
-              event.startDate.toDateString() === date.toDateString()
+              event.start.toDateString() === date.toDateString()
             );
 
             return (

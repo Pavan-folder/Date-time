@@ -27,7 +27,7 @@ const DraggableEvent: React.FC<DraggableEventProps> = ({ event, onEventClick, st
         e.stopPropagation();
         onEventClick(event);
       }}
-      title={`${event.title} - ${formatDate(event.startDate, 'HH:mm')} to ${formatDate(event.endDate, 'HH:mm')}`}
+      title={`${event.title} - ${formatDate(event.start, 'HH:mm')} to ${formatDate(event.end, 'HH:mm')}`}
     >
       <div className="font-medium truncate">{event.title}</div>
     </div>
@@ -85,8 +85,8 @@ export const WeekView: React.FC<WeekViewProps> = ({
             {weekDates.map((date, dayIndex) => {
               const dayEvents = getEventsForDate(events, date);
               const timeEvents = dayEvents.filter(event => {
-                const eventHour = event.startDate.getHours();
-                const eventMinute = event.startDate.getMinutes();
+                const eventHour = event.start.getHours();
+                const eventMinute = event.start.getMinutes();
                 const slotHour = parseInt(time.split(':')[0]);
                 const slotMinute = parseInt(time.split(':')[1]);
                 return eventHour === slotHour && Math.floor(eventMinute / 30) === Math.floor(slotMinute / 30);
@@ -99,7 +99,7 @@ export const WeekView: React.FC<WeekViewProps> = ({
                   onClick={() => onTimeSlotClick(date, time)}
                 >
                   {timeEvents.map(event => {
-                    const duration = (event.endDate.getTime() - event.startDate.getTime()) / (1000 * 60 * 30); // 30-minute slots
+                    const duration = (event.end.getTime() - event.start.getTime()) / (1000 * 60 * 30); // 30-minute slots
                     const height = Math.max(duration * 48, 24); // Minimum 24px height
 
                     return (

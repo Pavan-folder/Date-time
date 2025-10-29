@@ -4,6 +4,7 @@ import { useCalendar } from '../../hooks/useCalendar';
 import { useEventManager } from '../../hooks/useEventManager';
 import { MonthView } from './MonthView';
 import { WeekView } from './WeekView';
+import { ListView } from './ListView';
 import { EventModal } from './EventModal';
 import { Button } from '../primitives/Button';
 import { formatDate } from '../../utils/date.utils';
@@ -65,7 +66,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   }, [eventManager, onEventDelete]);
 
   const toggleView = useCallback(() => {
-    calendar.setView(calendar.view === 'month' ? 'week' : 'month');
+    const views: ('month' | 'week' | 'list')[] = ['month', 'week', 'list'];
+    const currentIndex = views.indexOf(calendar.view);
+    const nextIndex = (currentIndex + 1) % views.length;
+    calendar.setView(views[nextIndex]);
   }, [calendar]);
 
   // Keyboard navigation
@@ -83,6 +87,9 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       } else if (e.key === 'v' && !isModalOpen) {
         e.preventDefault();
         toggleView();
+      } else if (e.key === 'l' && !isModalOpen) {
+        e.preventDefault();
+        calendar.setView('list');
       }
     };
 
@@ -130,7 +137,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   onClick={toggleView}
                   className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:shadow-modern"
                 >
-                  {calendar.view === 'month' ? 'Week' : 'Month'}
+                  {calendar.view === 'month' ? 'Week' : calendar.view === 'week' ? 'List' : 'Month'}
                 </Button>
               </div>
             </div>
@@ -153,12 +160,17 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             onDateSelect={handleDateClick}
             onEventClick={handleEventClick}
           />
-        ) : (
+        ) : calendar.view === 'week' ? (
           <WeekView
             currentDate={calendar.currentDate}
             events={eventManager.events}
             onEventClick={handleEventClick}
             onTimeSlotClick={handleTimeSlotClick}
+          />
+        ) : (
+          <ListView
+            events={eventManager.events}
+            onEventClick={handleEventClick}
           />
         )}
 
@@ -176,8 +188,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               <p className="typography-label text-neutral-600 dark:text-dark-primary-400 mb-2">This Month</p>
               <p className="typography-heading-3 text-neutral-900 dark:text-dark-primary-100">
                 {eventManager.events.filter(event =>
-                  event.startDate.getMonth() === calendar.currentDate.getMonth() &&
-                  event.startDate.getFullYear() === calendar.currentDate.getFullYear()
+                  event.start.getMonth() === calendar.currentDate.getMonth() &&
+                  event.start.getFullYear() === calendar.currentDate.getFullYear()
                 ).length}
               </p>
             </div>
@@ -187,7 +199,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <div className="text-center">
               <p className="typography-label text-neutral-600 dark:text-dark-primary-400 mb-2">Upcoming</p>
               <p className="typography-heading-3 text-neutral-900 dark:text-dark-primary-100">
-                {eventManager.events.filter(event => event.startDate > new Date()).length}
+                {eventManager.events.filter(event => event.start > new Date()).length}
               </p>
             </div>
           </div>

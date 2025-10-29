@@ -41,10 +41,9 @@ export const EventModal: React.FC<EventModalProps> = ({
   const [formData, setFormData] = useState<EventFormData>({
     title: '',
     description: '',
-    startDate: selectedDate || new Date(),
-    endDate: selectedDate ? new Date(selectedDate.getTime() + 60 * 60 * 1000) : new Date(Date.now() + 60 * 60 * 1000),
+    start: selectedDate || new Date(),
+    end: selectedDate ? new Date(selectedDate.getTime() + 60 * 60 * 1000) : new Date(Date.now() + 60 * 60 * 1000),
     color: '#3b82f6',
-    category: 'work',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -54,16 +53,15 @@ export const EventModal: React.FC<EventModalProps> = ({
       setFormData({
         title: event.title,
         description: event.description || '',
-        startDate: new Date(event.startDate),
-        endDate: new Date(event.endDate),
+        start: new Date(event.start),
+        end: new Date(event.end),
         color: event.color || '#3b82f6',
-        category: event.category || 'work',
       });
     } else if (selectedDate) {
       setFormData(prev => ({
         ...prev,
-        startDate: new Date(selectedDate),
-        endDate: new Date(selectedDate.getTime() + 60 * 60 * 1000),
+        start: new Date(selectedDate),
+        end: new Date(selectedDate.getTime() + 60 * 60 * 1000),
       }));
     }
   }, [event, selectedDate]);
@@ -76,8 +74,8 @@ export const EventModal: React.FC<EventModalProps> = ({
       const errorObj: FormErrors = {};
       validationErrors.forEach(error => {
         if (error.includes('Title')) errorObj.title = error;
-        if (error.includes('Start date')) errorObj.startDate = error;
-        if (error.includes('End date')) errorObj.endDate = error;
+        if (error.includes('Start date')) errorObj.start = error;
+        if (error.includes('End date')) errorObj.end = error;
       });
       setErrors(errorObj);
       return;
@@ -141,11 +139,11 @@ export const EventModal: React.FC<EventModalProps> = ({
           <input
             type="datetime-local"
             id="startDate"
-            value={formData.startDate.toISOString().slice(0, 16)}
-            onChange={(e) => setFormData(prev => ({ ...prev, startDate: new Date(e.target.value) }))}
+            value={formData.start.toISOString().slice(0, 16)}
+            onChange={(e) => setFormData(prev => ({ ...prev, start: new Date(e.target.value) }))}
             className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
-          {errors.startDate && <p className="mt-1 text-sm text-red-600">{errors.startDate}</p>}
+          {errors.start && <p className="mt-1 text-sm text-red-600">{errors.start}</p>}
         </div>
 
         {/* End Date/Time */}
@@ -156,11 +154,11 @@ export const EventModal: React.FC<EventModalProps> = ({
           <input
             type="datetime-local"
             id="endDate"
-            value={formData.endDate.toISOString().slice(0, 16)}
-            onChange={(e) => setFormData(prev => ({ ...prev, endDate: new Date(e.target.value) }))}
+            value={formData.end.toISOString().slice(0, 16)}
+            onChange={(e) => setFormData(prev => ({ ...prev, end: new Date(e.target.value) }))}
             className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
           />
-          {errors.endDate && <p className="mt-1 text-sm text-red-600">{errors.endDate}</p>}
+          {errors.end && <p className="mt-1 text-sm text-red-600">{errors.end}</p>}
         </div>
 
         {/* Color */}
@@ -176,18 +174,7 @@ export const EventModal: React.FC<EventModalProps> = ({
           />
         </div>
 
-        {/* Category */}
-        <div>
-          <label className="block typography-label text-neutral-700 mb-1">
-            Category
-          </label>
-          <Select
-            options={categoryOptions}
-            value={formData.category}
-            onChange={(value) => setFormData(prev => ({ ...prev, category: value }))}
-            placeholder="Select category"
-          />
-        </div>
+
 
         {/* Actions */}
         <div className="flex justify-between pt-4">
