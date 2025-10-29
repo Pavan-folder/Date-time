@@ -12,7 +12,9 @@ export default {
   viteFinal: (config) => {
     return {
       ...config,
-      base: '/Date-time/',
+      // Use an environment-provided base when set (CI or special hosts),
+      // otherwise default to a relative base so Storybook assets load from any host/root.
+      base: process.env.STORYBOOK_BASE || './',
     };
   },
 };
