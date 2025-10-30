@@ -9,12 +9,14 @@ export default {
     name: '@storybook/react-vite',
     options: {}
   },
+  features: {
+    storyStoreV7: true,
+  },
   viteFinal: (config) => {
     return {
       ...config,
-      // Use an environment-provided base when set (CI or special hosts),
-      // otherwise default to a relative base so Storybook assets load from any host/root.
-      base: process.env.STORYBOOK_BASE || './',
+      // Use absolute base for Vercel deployment, relative for local development
+      base: process.env.VERCEL ? '/' : './',
     };
   },
 };

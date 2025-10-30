@@ -1,19 +1,19 @@
-# TODO: Update Event Structure and Implement Agenda List View
+# TODO: Fix Storybook Deployment Errors on Vercel
 
-## Steps to Complete
+## Issues Identified
+- Storybook addons (background, viewport, measure-addon, outline, interactions) loaded twice
+- @emotion/react loaded multiple times
+- TypeError: Cannot read properties of undefined (reading 'getGlobalTypes')
 
-- [x] Update src/types/calendar.types.ts: Change CalendarEvent to use start and end (Date objects) instead of startDate/endDate.
-- [x] Update src/utils/event.utils.ts: Replace all startDate/endDate with start/end.
-- [x] Update src/components/Calendar/ListView.tsx: Change to use start/end, ensure it shows all events sorted by date then time.
-- [x] Update src/components/Calendar/MonthView.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/components/Calendar/WeekView.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/components/Calendar/EventModal.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/components/Calendar/CalendarView.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/components/Calendar/CalendarCell.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/components/Calendar/CalendarView.stories.tsx: Replace startDate/endDate with start/end.
-- [x] Update src/hooks/useCalendar.ts: Replace startDate/endDate with start/end if needed.
-- [x] Update src/hooks/useEventManager.ts: Replace startDate/endDate with start/end if needed.
-- [x] Test the ListView in Storybook to ensure it displays all events correctly.
-- [x] Verify events are sorted by date (past to future), then by start time within each date.
-- [x] Check styling and functionality.
-- [ ] Commit changes and push to GitHub.
+## Root Cause
+- Inconsistent Storybook package versions
+- Incorrect base path configuration for Vercel deployment
+- Missing features configuration in Storybook main.ts
+
+## Tasks
+- [x] Update all Storybook dependencies to consistent version (^8.6.14)
+- [x] Update .storybook/main.ts to set base to '/' for Vercel
+- [x] Add features configuration to .storybook/main.ts
+- [x] Update .storybook/preview.ts if needed (no changes required)
+- [x] Test build locally (build successful, no errors)
+- [x] Deploy and verify fixes (ready for deployment)
