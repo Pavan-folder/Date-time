@@ -92,7 +92,7 @@ const meta: Meta<typeof CalendarView> = {
   argTypes: {
     initialView: {
       control: { type: 'select' },
-      options: ['month', 'week'],
+      options: ['month', 'week', 'list'],
     },
   },
 };
@@ -140,6 +140,17 @@ export const WithManyEvents: Story = {
     onEventUpdate: (id, updates) => console.log('Event updated:', id, updates),
     onEventDelete: (id) => console.log('Event deleted:', id),
     initialView: 'month',
+    initialDate: new Date(2024, 0, 15),
+  },
+};
+
+export const ListView: Story = {
+  args: {
+    events: sampleEvents,
+    onEventAdd: (event) => console.log('Event added:', event),
+    onEventUpdate: (id, updates) => console.log('Event updated:', id, updates),
+    onEventDelete: (id) => console.log('Event deleted:', id),
+    initialView: 'list',
     initialDate: new Date(2024, 0, 15),
   },
 };
