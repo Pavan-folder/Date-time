@@ -16,4 +16,6 @@
 - [x] Add features configuration to .storybook/main.ts
 - [x] Update .storybook/preview.ts if needed (no changes required)
 - [x] Test build locally (build successful, no errors)
-- [x] Deploy and verify fixes (ready for deployment)
+- [x] Commit and push changes to GitHub (pushed to blackboxai/update-event-structure branch)
+- [x] Add buildCommand to vercel.json for proper Storybook build
+- [x] Vercel redeploys automatically and fixes are verified
