@@ -1,3 +1,5 @@
+import type { UserConfig } from 'vite';
+
 export default {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -12,7 +14,7 @@ export default {
   features: {
     storyStoreV7: true,
   },
-  viteFinal: (config) => {
+  viteFinal: (config: UserConfig) => {
     return {
       ...config,
       // Use absolute base for Vercel deployment, relative for local development
