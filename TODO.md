@@ -17,5 +17,5 @@
 - [x] Update .storybook/preview.ts if needed (no changes required)
 - [x] Test build locally (build successful, no errors)
 - [x] Commit and push changes to GitHub (pushed to blackboxai/update-event-structure branch)
-- [x] Add buildCommand to vercel.json for proper Storybook build
+- [x] Add buildCommand to vercel.json for proper Storybook build (fixed to use modern format)
 - [x] Vercel redeploys automatically and fixes are verified
