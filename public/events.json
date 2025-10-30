@@ -1,0 +1,33 @@
+[
+  {
+    "id": "evt-1",
+    "title": "Team Standup",
+    "description": "Daily sync with the team",
+    "start": "2024-01-15T09:00:00.000Z",
+    "end": "2024-01-15T09:30:00.000Z",
+    "color": "#3b82f6"
+  },
+  {
+    "id": "evt-2",
+    "title": "Design Review",
+    "description": "Review new component designs",
+    "start": "2024-01-15T14:00:00.000Z",
+    "end": "2024-01-15T15:30:00.000Z",
+    "color": "#10b981"
+  },
+  {
+    "id": "evt-3",
+    "title": "Client Presentation",
+    "start": "2024-01-16T10:00:00.000Z",
+    "end": "2024-01-16T11:30:00.000Z",
+    "color": "#f59e0b"
+  },
+  {
+    "id": "evt-4",
+    "title": "Development Sprint",
+    "description": "Sprint planning and task assignment",
+    "start": "2024-01-17T09:00:00.000Z",
+    "end": "2024-01-17T17:00:00.000Z",
+    "color": "#8b5cf6"
+  }
+]

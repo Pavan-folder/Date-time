@@ -23,12 +23,7 @@ const colorOptions = [
   { value: '#06b6d4', label: 'Cyan' },
 ];
 
-const categoryOptions = [
-  { value: 'work', label: 'Work' },
-  { value: 'meeting', label: 'Meeting' },
-  { value: 'personal', label: 'Personal' },
-  { value: 'other', label: 'Other' },
-];
+
 
 export const EventModal: React.FC<EventModalProps> = ({
   isOpen,

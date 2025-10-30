@@ -78,7 +78,7 @@ export const CalendarCell: React.FC<CalendarCellProps> = React.memo(({
               onClick={(e) => handleEventClick(event, e)}
               className="text-xs px-2 py-1 rounded truncate cursor-pointer hover:opacity-80 transition-all duration-200 text-white"
               style={{ backgroundColor: event.color || '#3b82f6' }}
-              title={`${event.title} - ${formatDate(event.startDate, 'HH:mm')} to ${formatDate(event.endDate, 'HH:mm')}`}
+              title={`${event.title} - ${formatDate(event.start, 'HH:mm')} to ${formatDate(event.end, 'HH:mm')}`}
               tabIndex={0}
               role="button"
               aria-label={`Event: ${event.title}`}
